@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employes>
+    <employe>
+        <name>Vasiliy</name>
+        <department_id>1</department_id>
+    </employe>
+    <employe>
+        <name>Ivan</name>
+        <department_id>1</department_id>
+    </employe>
+    <employe>
+        <name>Ivan</name>
+        <department_id>1</department_id>
+    </employe>
+    <employe>
+        <name>Roman</name>
+        <department_id>2</department_id>
+    </employe>
+    <employe>
+        <name>Stiven</name>
+        <department_id>1</department_id>
+    </employe>
+    <employe>
+        <name>Marta</name>
+        <department_id>2</department_id>
+    </employe>
+    <employe>
+        <name>Irena</name>
+        <department_id>2</department_id>
+    </employe>
+    <employe>
+        <name>Jack</name>
+        <department_id>1</department_id>
+    </employe>
+    <employe>
+        <name>Marina</name>
+        <department_id>2</department_id>
+    </employe>
+</employes>

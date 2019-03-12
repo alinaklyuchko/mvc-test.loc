@@ -7,11 +7,17 @@
  */
 namespace Views;
 
+/**
+ * Class View
+ * @package Views
+ */
 class View
 {
-   public function __construct()
+    /**
+     * View constructor.
+     */
+    public function __construct()
    {
 
    }
-
 }

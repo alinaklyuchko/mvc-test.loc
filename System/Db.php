@@ -18,7 +18,6 @@ final class Db
      * @var null
      */
     private static $instance = null;
-
     /**
      * @return bool|null|PDO
      */
@@ -43,21 +42,18 @@ final class Db
         }
         return static::$instance;
     }
-
     /**
      * Db constructor.
      */
     private function __construct()
     {
     }
-
     /**
      * Db clone.
      */
     private function __clone()
     {
     }
-
     /**
      * Db wakeup
      */

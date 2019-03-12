@@ -7,6 +7,7 @@
  */
 namespace System;
 use Route\Route;
+use Exception\Http404Exception;
 /**
  * Class App
  * @package System
@@ -19,7 +20,6 @@ class App {
     {
 
     }
-
     /**
      * @return void
      */
@@ -28,11 +28,18 @@ class App {
         System::$db = Db::getInstance();
         System::globals();
     }
+    /**
+     * @return void
+     */
     public function run()
     {
         $route = new Route();
         $route->match();
-//        var_dump($route);
-        $route->start();
+        try {
+            $route->start();
+        } catch (Http404Exception $exception) {
+            echo $exception->getMessage();
+            exit();
+        }
     }
 }

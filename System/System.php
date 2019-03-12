@@ -30,7 +30,6 @@ class System {
     private static $settings = [
 
     ];
-
     /**
      * @param $key string
      * @param $value mixed
@@ -39,7 +38,6 @@ class System {
     {
         static::$settings[$key] = $value;
     }
-
     /**
      * @param $key string
      * @return mixed
@@ -48,7 +46,6 @@ class System {
     {
         return static::$settings[$key];
     }
-
     /**
      * @return void
      */

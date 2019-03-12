@@ -8,15 +8,29 @@
 namespace Controllers;
 
 use Controllers\Base\Controller;
+use Exception\Http404Exception;
 
+/**
+ * Class Admin
+ * @package Controllers
+ */
 class Admin extends Controller
 {
-//    public function __construct()
-//    {
-//        echo 'yahoo';
-//    }
+    /**
+     * @param array $args
+     */
     public function myfunc(array $args) {
-        echo '!!!!';
-        echo __CLASS__ . __METHOD__;
+
+        $this->render([]);
+    }
+
+    /**
+     * @param array $args
+     * @throws Http404Exception
+     */
+    public function index(array $args)
+    {
+
+        throw new Http404Exception();
     }
 }
