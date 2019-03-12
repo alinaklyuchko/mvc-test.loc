@@ -14,7 +14,6 @@ use Exception\Http404Exception;
  * @package Route
  */
 class Route {
-
     /**
      * @var array
      */

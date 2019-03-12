@@ -57,11 +57,7 @@ class DbTable {
            $limit = $arr['limit'];
         }
         else {
-            $limit = 20;
-        }
-        if (array_key_exists('where', $arr))
-        {
-            $where = $arr['where'];
+            $limit = 5;
         }
         if (array_key_exists('offset', $arr))
         {
@@ -69,6 +65,16 @@ class DbTable {
         }
         else {
             $offset = 0;
+        }
+        if (array_key_exists('where', $arr))
+        {
+            $where = $arr['where'];
+        }
+        else {
+            $sql = "SELECT * FROM $this->table LIMIT $limit OFFSET $offset";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchALL(PDO::FETCH_OBJ);
         }
         $sql = "SELECT * FROM $this->table WHERE $where LIMIT $limit OFFSET $offset";
         $stmt = $this->conn->prepare($sql);
@@ -100,5 +106,31 @@ class DbTable {
 	              VALUES ($newValue)";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute();
+    }
+    public function selectByDepart($arr = [], $table2 = '')
+    {
+        if (array_key_exists('limit', $arr))
+        {
+            $limit = $arr['limit'];
+        }
+        else {
+            $limit = 5;
+        }
+        if (array_key_exists('offset', $arr))
+        {
+            $offset = $arr['offset'];
+        }
+        else {
+            $offset = 0;
+        }
+        if (array_key_exists('where', $arr))
+        {
+            $where = $arr['where'];
+        }
+        $sql = "SELECT * FROM $this->table INNER JOIN $table2 ON $this->table.department.id = $table2.id WHERE $where LIMIT $limit OFFSET $offset";
+        var_dump($sql);
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchALL(PDO::FETCH_OBJ);
     }
 }
