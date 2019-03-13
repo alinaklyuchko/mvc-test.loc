@@ -50,5 +50,12 @@ echo '<pre>';
         <?php endforeach; ?>
         <?php endif; ?>
     </table>
+    <div>
+        <a href="">Назад</a>
+        <a href=""></a>
+        <a href=""></a>
+        <a href=""></a>
+        <a href="">Вперед</a>
+    </div>
 </body>
 </html>

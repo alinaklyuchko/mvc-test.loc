@@ -7,7 +7,7 @@
  */
 namespace Controllers;
 use Controllers\Base\Controller;
-use Model\DbTable;
+use Services\Xmlloader;
 
 /**
  * Class Importxml
@@ -20,23 +20,7 @@ class Importxml extends Controller
      */
     public function import(array $args)
     {
-        $this->render([]);
-        $xml = simplexml_load_file('./upload/import.xml');
-        $args = [];
-        foreach ($xml as $item => $value)
-        {
-            $args[] = get_object_vars($value);
-        }
-        $countArgs = count($args);
-        $argKeys = array_keys($args[0]);
-        $fields =[];
-        foreach ($argKeys as $key => $value)
-        {
-            $fields[$value] = '';
-        }
-        $mod = new DbTable('employes', $fields);
-        for ($i = 0; $i < $countArgs; $i++){
-            $mod->insert($args[$i]);
-        }
+//        $file = './upload/import.xml';
+        $loadXml = new Xmlloader('./upload/import.xml');
     }
 }
