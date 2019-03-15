@@ -15,12 +15,12 @@ use Services\Xmlloader;
  */
 class Importxml extends Controller
 {
+
     /**
      * @param array $args
      */
     public function import(array $args)
     {
-//        $file = './upload/import.xml';
         $loadXml = new Xmlloader('./upload/import.xml');
     }
 }

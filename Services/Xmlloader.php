@@ -7,10 +7,26 @@
  */
 namespace Services;
 use Model\DbTable;
+
+/**
+ * Class Xmlloader
+ * @package Services
+ */
 class Xmlloader
 {
+    /**
+     * @var int
+     */
     public $resStr = 0;
+    /**
+     * @var int
+     */
     public $resErrors = 0;
+
+    /**
+     * Xmlloader constructor.
+     * @param $file
+     */
     public function __construct($file)
     {
         $xml = simplexml_load_file($file);
@@ -22,14 +38,10 @@ class Xmlloader
         $countArgs = count($args);
         $argKeys = array_keys($args[0]);
         $fields =[];
-//        var_dump($countArgs);
         foreach ($argKeys as $key => $value)
         {
             $fields[$value] = '';
         }
-//        var_dump($fields);
-        echo '<pre>';
-//        var_dump($args[0]);
         $mod = new DbTable('employes', $fields);
         for ($i = 0; $i < $countArgs; $i++){
             $res = $mod->insert($args[$i]);

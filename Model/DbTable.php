@@ -54,7 +54,7 @@ class DbTable {
     {
         if (array_key_exists('limit', $arr))
         {
-           $limit = $arr['limit'];
+            $limit = $arr['limit'];
         }
         else {
             $limit = 5;
@@ -89,7 +89,6 @@ class DbTable {
     {
         $newField ='';
         $newValue = '';
-//        var_dump($arr);
         foreach ($arr as $key => $value)
         {
             $key = '`'.$key.'`'.', ';
@@ -107,6 +106,11 @@ class DbTable {
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute();
     }
+    /**
+     * @param array $arr
+     * @param string $table2
+     * @return array
+     */
     public function selectByDepart($arr = [], $table2 = '')
     {
         if (array_key_exists('limit', $arr))
@@ -126,11 +130,44 @@ class DbTable {
         if (array_key_exists('where', $arr))
         {
             $where = $arr['where'];
+            $sql = "SELECT * FROM $this->table LEFT JOIN $table2 ON $this->table.department_id = $table2.id WHERE $where LIMIT $limit OFFSET $offset";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchALL(PDO::FETCH_OBJ);
         }
-        $sql = "SELECT * FROM $this->table INNER JOIN $table2 ON $this->table.department.id = $table2.id WHERE $where LIMIT $limit OFFSET $offset";
-        var_dump($sql);
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchALL(PDO::FETCH_OBJ);
+        elseif (!array_key_exists('where', $arr))
+        {
+            $sql = "SELECT * FROM $this->table LEFT JOIN $table2 ON $this->table.department_id = $table2.id LIMIT $limit OFFSET $offset";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchALL(PDO::FETCH_OBJ);
+        }
+
+    }
+    /**
+     * @param string $where
+     * @return int
+     */
+    public function getCount($where = '')
+    {
+        if ($where == ''){
+            $sql = "SELECT COUNT(*) FROM $this->table";
+            return (int)($this->conn->query($sql)->fetchALL(PDO::FETCH_ASSOC))[0]["COUNT(*)"];
+        }
+        elseif ($where != '')
+        {
+            $w = $this->getDepartId($where);
+            $sql = "SELECT COUNT(*) FROM $this->table WHERE department_id = $w";
+            return (int)($this->conn->query($sql)->fetchALL(PDO::FETCH_ASSOC))[0]["COUNT(*)"];
+        }
+    }
+    /**
+     * @param $where
+     * @return mixed
+     */
+    public function getDepartId($where)
+    {
+        $sql = "SELECT id FROM department WHERE $where";
+        return $this->conn->query($sql)->fetchALL(PDO::FETCH_ASSOC)[0]['id'];
     }
 }

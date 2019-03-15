@@ -11,8 +11,6 @@ require_once 'System/Asset.php';
 \System\Asset::getCss();
 \System\Asset::getJs();
 
-
-//print_r($xml);
 ?>
 <!doctype html>
 <html lang="en">

@@ -3,13 +3,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require_once 'Model/DbTable.php';
-$mod = new Model\DbTable('employes', ['id' => '', 'name' => '', 'department_id' => '']);
-$data = $mod->select();
-//$data2 = $mod->selectByDepart(['where' => 'department_name = accounting department'], 'department');
-echo '<pre>';
-//var_dump($data2);
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,35 +20,22 @@ echo '<pre>';
             <td>Имя</td>
             <td>Департамент</td>
         </tr>
-
-        <?php foreach ($data as $datum) : ?>
-            <tr>
-                <td><?= $datum->name ?></td>
-                <td><?= $datum->department_id ?></td>
-            </tr>
-        <?php endforeach; ?>
-
-    </table>
-    <table>
-        <tr class="title">
-            <td>Имя</td>
-            <td>Департамент</td>
-        </tr>
-        <?php if (isset($data2)) : ?>
-        <?php foreach ($data2 as $datum) : ?>
-            <tr>
-                <td><?= $datum->name ?></td>
-                <td><?= $datum->department_name ?></td>
-            </tr>
-        <?php endforeach; ?>
+        <?php if ($data) : ?>
+            <?php foreach ($data as $datum) : ?>
+                <tr>
+                    <td><?= $datum->name ?></td>
+                    <td><?= $datum->department_name ?></td>
+                </tr>
+            <?php endforeach; ?>
         <?php endif; ?>
     </table>
+    <?php
+    \Services\Pagination::renderPag();
+    ?>
     <div>
-        <a href="">Назад</a>
-        <a href=""></a>
-        <a href=""></a>
-        <a href=""></a>
-        <a href="">Вперед</a>
+        <a href="http://mvc-test.loc/employes/accounting">accounting department</a>
+        <a href="http://mvc-test.loc/employes/sales">sales department</a>
+        <a href="http://mvc-test.loc/employes">Назад</a>
     </div>
 </body>
 </html>
