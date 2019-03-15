@@ -9,10 +9,10 @@ xhr.onreadystatechange = function() { // (3)
 
 
 
-    if (xhr.status != 200) {
-        alert(hello);
-    } else {
-        alert();
-    }
+    // if (xhr.status != 200) {
+    //     alert(hello);
+    // } else {
+    //     alert();
+    // }
 
 }
