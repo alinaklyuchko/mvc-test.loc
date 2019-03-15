@@ -14,7 +14,10 @@ error_reporting(E_ALL);
 </head>
 <body>
     <h2>Employes</h2>
-    <div>
+    <div class="content">
+        <?php
+        require_once 'part.php';
+        ?>
         <table>
             <tr class="title">
                 <td>Имя</td>
