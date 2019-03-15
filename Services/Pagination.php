@@ -6,76 +6,75 @@
  * Time: 15:31
  */
 namespace Services;
-//use Model\DbTable;
-//use Exception\Http404Exception;
+use Exception\Http404Exception;
+
+/**
+ * Class Pagination
+ * @package Services
+ */
 class Pagination
 {
-    public static $allPage;
-    public static $activePage;
-    public static $count;
-
-    public static function countPag($allPage, $activePage, $count)
+    /**
+     * @param $params
+     * @throws Http404Exception
+     */
+    public static function countPag($params)
     {
-        self::$activePage = $activePage;
-        var_dump(self::$activePage);
-        self::$allPage = $allPage;
-        var_dump(self::$allPage);
-        self::$count = $count;
-        var_dump(self::$count);
+        echo '<pre>';
+        $allPage = 0;
+        $activePage = 1;
+        if (key_exists('allPage', $params))
+        {
+            $allPage = $params['allPage'];
+        }
+        if (key_exists('activePage', $params))
+        {
+            $activePage = $params['activePage'];
+        }
+        echo '<pre>';
+
+        $uri = $_SERVER['REQUEST_URI'];
+        $arUri = explode('/', trim($uri, '/'));
+        if (ctype_digit(end($arUri))) {
+            array_pop($arUri);
+        }
+        $link = '/' . implode('/', $arUri) . '/';
+             if ($activePage <=3)
+            {
+
+                for ($i = 1; $i <= 5; $i++)
+                {
+                    $links[] = $i;
+                }
+            }
+            elseif ($activePage >3 && $activePage <= $allPage-2)
+            {
+                for ($i = $activePage-2; $i <= $activePage+2; $i++)
+                {
+                    $links[] = $i;
+                }
+            }
+            elseif ($activePage > $allPage-2)
+            {
+                for ($i = $activePage-4; $i <= $allPage; $i++)
+                {
+                    $links[] = $i;
+                }
+            }
+            if ($activePage > $allPage)
+            {
+                throw new Http404Exception();
+            }
+            static::renderPag($links, $link);
     }
-
-    public static function renderPag()
-    {
-//        for ($i = 1; $i <= 5 & $i <= self::$allPage; $i++)
-//        {
-//           echo "<a href=#" . $i . "> Стр " . $i . "</a>";
-//        }
-//        echo "<a href= " . self::$activePage-2 . "> Стр " . self::$activePage-2 . "</a>";
-//        echo "<a href= " . self::$activePage-1 . "> Стр " . self::$activePage-1 . "</a>";
-//        echo "<a href= " . self::$activePage . "> Стр " . self::$activePage . "</a>";
-//        echo "<a href= " . self::$activePage+1 . "> Стр " . self::$activePage+1 . "</a>";
-//        echo "<a href= " . self::$activePage+2 . "> Стр " . self::$activePage+2 . "</a>";
-        $url = $_SERVER['REQUEST_URI'];
-        if (self::$activePage >= 1 && self::$activePage <=3)
+    /**
+     * @param $links
+     * @param $href
+     */
+    public static function renderPag($links, $href){
+        foreach($links as $link)
         {
-            for ($i = 1; $i <= 5 & $i <= self::$allPage; $i++)
-            {
-                echo "<a href=..$url" . $i . "> Стр " . $i . "</a>";
-            }
+            echo "<a href =". $href . $link .">" . "Стр " . $link. "</a>&nbsp;&nbsp;";
         }
-        elseif (3 < self::$activePage && self::$activePage < (self::$allPage - 3))
-        {
-            for ($i = (self::$activePage - 2); $i <= (self::$activePage + 2); $i++)
-            {
-                echo "<a href=..$url" . $i . "> Стр " . $i . "</a>";
-            }
-        }
-        elseif ($activePage = (self::$allPage - 3))
-        {
-            for ($i = (self::$allPage - 5); $i <= self::$allPage; $i++)
-            {
-                echo "<a href=..$url" . $i . "> Стр " . $i . "</a>";
-            }
-        }
-//        if (self::$activePage <= 3) {
-//           for ($i = 1; $i <= 6 & $i <= self::$allPage; $i++)
-//            {
-//           echo "<a href=../sales/" . $i . "> Стр " . $i . "</a>";
-//            }
-//        }
-//        elseif (3 < self::$activePage && self::$activePage < (self::$allPage - 3))
-//        {
-//            for ($i = (self::$activePage - 2); $i <= (self::$activePage + 3); $i++)
-//            {
-//                echo "<a href=../sales/" . $i . "> Стр " . $i . "</a>";
-//            }
-//        }
-//        elseif ($activePage = (self::$allPage - 3))
-//        {
-//            for ($i = (self::$allPage - 5); $i <= self::$allPage; $i++)
-//            {
-//            echo "<a href=../" . $i . "> Стр " . $i . "</a>";
-//            }
-//        }
     }
 }

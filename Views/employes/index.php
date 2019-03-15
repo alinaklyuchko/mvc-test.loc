@@ -2,7 +2,6 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -15,23 +14,26 @@ error_reporting(E_ALL);
 </head>
 <body>
     <h2>Employes</h2>
-    <table>
-        <tr class="title">
-            <td>Имя</td>
-            <td>Департамент</td>
-        </tr>
-        <?php if ($data) : ?>
-            <?php foreach ($data as $datum) : ?>
-                <tr>
-                    <td><?= $datum->name ?></td>
-                    <td><?= $datum->department_name ?></td>
-                </tr>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </table>
-    <?php
-    \Services\Pagination::renderPag();
-    ?>
+    <div>
+        <table>
+            <tr class="title">
+                <td>Имя</td>
+                <td>Департамент</td>
+            </tr>
+            <?php if ($data) : ?>
+                <?php foreach ($data as $datum) : ?>
+                    <tr>
+                        <td><?= $datum->name ?></td>
+                        <td><?= $datum->department_name ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </table>
+        <?php
+        //    \Services\Pagination::renderPag();
+        \Services\Pagination::countPag($params);
+        ?>
+    </div>
     <div>
         <a href="http://mvc-test.loc/employes/accounting">accounting department</a>
         <a href="http://mvc-test.loc/employes/sales">sales department</a>

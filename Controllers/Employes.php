@@ -9,7 +9,7 @@ namespace Controllers;
 use Controllers\Base\Controller;
 use Model\DbTable;
 use Exception\Http404Exception;
-use Services\Pagination;
+
 
 /**
  * Class Employes
@@ -27,6 +27,7 @@ class Employes extends Controller
         $limit = 20;
         $offset = 0;
         $activePage = 1;
+        $allPage = 0;
         $mod = new DbTable('employes', ['id' => '', 'name' => '', 'department_id' => '']);
         if (empty($args))
         {
@@ -34,16 +35,6 @@ class Employes extends Controller
             $params['data'] = $data;
             $count = $mod->getCount();
             $allPage = ceil($count / $limit);
-            Pagination::countPag($allPage, $activePage, $count);
-
-//            for ($i = 1; $i <= 6 & $i <= $allPage; $i++)
-//            {
-//                echo "<a href=../employes/" . $i . "> Стр " . $i . "</a>";
-//            }
-//            if ($activePage >= 1 & $activePage < $allPage)
-//            {
-//                echo "<p><a href=../employes/" . ++$activePage . ">Вперед</a></p>";
-//            }
         }
         elseif ($args)
         {
@@ -53,38 +44,8 @@ class Employes extends Controller
                 $offset = ($limit * $activePage) - $limit;
                 $count = $mod->getCount();
                 $allPage = ceil($count / $limit);
-                Pagination::countPag($allPage, $activePage, $count);
-//                if ($activePage > $allPage)
-//                {
-//                    throw new Http404Exception();
-//                }
                 $data = $mod->selectByDepart(['limit' => $limit, 'offset' => $offset], 'department');
                 $params['data'] = $data;
-
-//                if ($activePage <= 3)
-//                {
-//                    for ($i = 1; $i <= 6 & $i <= $allPage; $i++)
-//                    {
-//                        echo "<a href=../employes/" . $i . "> Стр " . $i . "</a>";
-//                    }
-//                }
-//                elseif (3 < $activePage && $activePage < ($allPage - 3))
-//                {
-//                    for ($i = ($activePage - 2); $i <= ($activePage + 3); $i++)
-//                    {
-//                        echo "<a href=../employes/" . $i . "> Стр " . $i . "</a>";
-//                    }
-//                }
-//                elseif ($activePage = ($allPage - 3))
-//                {
-//                    for ($i = ($allPage - 5); $i <= $allPage; $i++)
-//                    {
-//                        echo "<a href=../employes/" . $i . "> Стр " . $i . "</a>";
-//                    }
-//                }
-//                echo "<p><a href=../employes/" . ++$activePage . ">  Вперед  </a></p>";
-//                var_dump(111);
-//                var_dump($activePage);
             }
             elseif (!ctype_digit($args[0]))
             {
@@ -99,11 +60,6 @@ class Employes extends Controller
                         $params['data'] = $data;
                         $count = $mod->getCount();
                         $allPage = ceil($count / $limit);
-                        Pagination::countPag($allPage, $activePage, $count);
-//                        for ($i = 1; $i <= 6 & $i <= $allPage; $i++)
-//                        {
-//                            echo "<a href=../employes/accounting/" . $i . "> Стр " . $i . "</a>";
-//                        }
                     }
                     elseif ($args[1])
                     {
@@ -113,35 +69,8 @@ class Employes extends Controller
                             $offset = ($limit * $activePage) - $limit;
                             $count = $mod->getCount($where);
                             $allPage = ceil($count / $limit);
-                            Pagination::countPag($allPage, $activePage, $count);
-                            if ($activePage > $allPage)
-                            {
-                                throw new Http404Exception();
-                            }
                             $data = $mod->selectByDepart(['limit' => $limit, 'offset' => $offset, 'where' => $where], 'department');
                             $params['data'] = $data;
-//                            if ($activePage <= 3)
-//                            {
-//                                for ($i = 1; $i <= 6 & $i <= $allPage; $i++)
-//                                {
-//                                    echo "<a href=../accounting/" . $i . "> Стр " . $i . "</a>";
-//                                }
-//                            }
-//                            elseif (3 < $activePage && $activePage < ($allPage - 3))
-//                            {
-//                                for ($i = ($activePage - 2); $i <= ($activePage + 3); $i++)
-//                                {
-//                                    echo "<a href=../accounting/" . $i . "> Стр " . $i . "</a>";
-//                                }
-//                            }
-//                            elseif ($activePage = ($allPage - 3))
-//                            {
-//                                for ($i = ($allPage - 5); $i <= $allPage; $i++)
-//                                {
-//                                    echo "<a href=../accounting/" . $i . "> Стр " . $i . "</a>";
-//                                }
-//                            }
-//                            echo "<a href=../accounting/" . ++$activePage . ">Вперед</a>";
                         }
                         elseif (!ctype_digit($args[1]))
                         {
@@ -160,12 +89,6 @@ class Employes extends Controller
                         $params['data'] = $data;
                         $count = $mod->getCount();
                         $allPage = ceil($count / $limit);
-                        Pagination::countPag($allPage, $activePage, $count);
-//                        for ($i = 1; $i <= 6 & $i <= $allPage; $i++)
-//                        {
-//                            echo "<a href=../employes/sales/" . $i . "> Стр " . $i . "</a>";
-//                        }
-//                        echo "<a href=../employes/" . ++$activePage . ">Вперед</a>";
                     }
                     elseif ($args[1])
                     {
@@ -175,37 +98,8 @@ class Employes extends Controller
                             $offset = ($limit * $activePage) - $limit;
                             $count = $mod->getCount($where);
                             $allPage = ceil($count / $limit);
-                            Pagination::countPag($allPage, $activePage, $count);
-                            if ($activePage > $allPage)
-                            {
-                                throw new Http404Exception();
-                            }
                             $data = $mod->selectByDepart(['limit' => $limit, 'offset' => $offset, 'where' => $where], 'department');
                             $params['data'] = $data;
-//                            if ($activePage <= 3) {
-//                                for ($i = 1; $i <= 6 & $i <= $allPage; $i++)
-//                                {
-//                                    echo "<a href=../sales/" . $i . "> Стр " . $i . "</a>";
-//                                }
-//                            }
-//                            elseif (3 < $activePage && $activePage < ($allPage - 3))
-//                            {
-//                                for ($i = ($activePage - 2); $i <= ($activePage + 3); $i++)
-//                                {
-//                                    echo "<a href=../sales/" . $i . "> Стр " . $i . "</a>";
-//                                }
-//                            }
-//                            elseif ($activePage = ($allPage - 3))
-//                            {
-//                                for ($i = ($allPage - 5); $i <= $allPage; $i++)
-//                                {
-//                                    echo "<a href=../sales/" . $i . "> Стр " . $i . "</a>";
-//                                }
-//                            }
-//                            if ($activePage <= $allPage)
-//                            {
-//                                echo "<a href=../employes/" . ++$activePage . ">Вперед</a>";
-//                            }
                         }
                         elseif (!ctype_digit($args[1]))
                         {
@@ -219,6 +113,12 @@ class Employes extends Controller
                 }
             }
         }
+        $params['allPage'] = (int)$allPage;
+        $params['activePage'] = $activePage;
         $this->render($params);
+    }
+    public function part()
+    {
+
     }
 }
