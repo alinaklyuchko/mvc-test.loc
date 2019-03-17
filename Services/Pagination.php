@@ -72,9 +72,11 @@ class Pagination
      * @param $href
      */
     public static function renderPag($links, $href){
+//        echo '<div class="links">';
         foreach($links as $link)
         {
-            echo "<a class='pag' href =". $href . $link .">" . "Стр " . $link. "</a>&nbsp;&nbsp;";
+            echo "<a class='pag' data-url='mvc-tes.loc/employes' data-page='$link' href =". $href . $link .">" . "Стр " . $link. "</a>&nbsp;&nbsp;";
         }
+//        echo '</div>';
     }
 }

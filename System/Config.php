@@ -8,6 +8,6 @@
 return [
     'host' => 'localhost',
     'user' => 'root',
-    'password' => '123',
+    'password' => 'moysql04',
     'db_name' => 'mvc_test'
 ];
