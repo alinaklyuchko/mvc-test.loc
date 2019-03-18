@@ -74,7 +74,7 @@ class Pagination
     public static function renderPag($links, $href){
         foreach($links as $link)
         {
-            echo "<a class='pag' href =". $href . $link .">" . "Стр " . $link. "</a>&nbsp;&nbsp;";
+            echo "<a class='pag' data-url='/employes/part' data-page='$link' href =". $href . $link .">" . "Стр " . $link. "</a>&nbsp;&nbsp;";
         }
     }
 }

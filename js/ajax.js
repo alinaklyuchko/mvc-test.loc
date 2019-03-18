@@ -1,18 +1,27 @@
-var xhr = new XMLHttpRequest();
+"use strict";
 
-xhr.open('GET', 'http://mvc-test.loc/employes', true);
+    document.addEventListener('DOMContentLoaded', function () {
+        var content = document.querySelector(".content");
+        content.addEventListener('click', function(e){
+            var target = e.target; // где был клик?
+              if (target.tagName == 'A') {
+                e.preventDefault();
+                var url = target.getAttribute('data-url');
+                var page = target.getAttribute('data-page');
+                var formData = new FormData();
+                formData.append('page', page);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", url);
+                xhr.send(formData);
+                xhr.addEventListener('readystatechange', function()
+                {
+                    if (this.readyState == 4 && this.status == 200)
+                    {
+                       content.innerHTML = this.responseText;
+                    };
+                });
 
-xhr.send(); // (1)
+            };
+        });
+    });
 
-xhr.onreadystatechange = function() { // (3)
-    if (xhr.readyState != 4) return;
-
-
-
-    // if (xhr.status != 200) {
-    //     alert(hello);
-    // } else {
-    //     alert();
-    // }
-
-}

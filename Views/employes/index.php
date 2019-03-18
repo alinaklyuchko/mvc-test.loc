@@ -15,28 +15,9 @@ error_reporting(E_ALL);
 <body>
     <h2>Employes</h2>
     <div class="content">
-        <?php
-        require_once 'part.php';
-        ?>
-        <table>
-            <tr class="title">
-                <td>Имя</td>
-                <td>Департамент</td>
-            </tr>
-            <?php if ($data) : ?>
-                <?php foreach ($data as $datum) : ?>
-                    <tr>
-                        <td><?= $datum->name ?></td>
-                        <td><?= $datum->department_name ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </table>
-        <?php
-        //    \Services\Pagination::renderPag();
-        \Services\Pagination::countPag($params);
-        ?>
+        <?php require_once 'part.php'; ?>
     </div>
+<!--    <form action=""></form>-->
     <div>
         <a href="http://mvc-test.loc/employes/accounting">accounting department</a>
         <a href="http://mvc-test.loc/employes/sales">sales department</a>

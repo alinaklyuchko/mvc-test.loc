@@ -8,6 +8,7 @@
 namespace System;
 use Route\Route;
 use Exception\Http404Exception;
+//use System\Asset;
 /**
  * Class App
  * @package System
@@ -41,5 +42,7 @@ class App {
             echo $exception->getMessage();
             exit();
         }
+        \System\Asset::getCss();
+        \System\Asset::getJs();
     }
 }
