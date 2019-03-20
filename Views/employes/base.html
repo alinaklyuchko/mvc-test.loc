@@ -1,11 +1,3 @@
-<?php
-$loader = new \Twig\Loader\FilesystemLoader('./templates');
-$twig = new \Twig\Environment($loader, [
-    'cache' => './compilation_cache',
-]);
-
-echo $twig->render('base.html']);
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,6 +8,8 @@ echo $twig->render('base.html']);
     <title>Document</title>
 </head>
 <body>
-
+ <p>base.twig</p>
+{% block content %}
+{% endblock %}
 </body>
 </html>

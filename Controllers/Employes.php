@@ -10,7 +10,7 @@ use Controllers\Base\Controller;
 use Model\DbTable;
 use Exception\Http404Exception;
 use System\System;
-
+use Twig;
 
 /**
  * Class Employes
@@ -24,6 +24,8 @@ class Employes extends Controller
      */
     public function index(array $args)
     {
+        $this->render();
+        exit();
         $params = [];
         $limit = 20;
         $offset = 0;
@@ -117,7 +119,48 @@ class Employes extends Controller
         $params['allPage'] = (int)$allPage;
         $params['activePage'] = $activePage;
         $this->render($params);
+//        echo '<pre>';
+//        var_dump($data);
+//        $newArr = [];
+//       foreach ($data as $key => $v)
+//       {
+////           var_dump($v);
+//          foreach ($v as $k => $i)
+//          {
+//                $newArr[] = $k;
+//
+////              var_dump($i);
+//          }
+//       }
+//       foreach ($newArr as $k => $v)
+//       {
+////           var_dump($k);
+//           $newArr[$k] = $v;
+//       }
+//       var_dump($newArr);
+//        $this->render($params);
+//        var_dump($params);
+//        $this->render();
+//        $loader = new \Twig\Loader\ArrayLoader([
+//            'index.php' => '{{ data }}',
+//            'base.html' => "{% extends 'base.html' %}"
+//        ]);
+//        $twig = new \Twig\Environment($loader);
+
+//        echo $twig->render('index.php', $params['data']);
+//        echo $twig->render('index.php', $params['data']);
+
+//        var_dump($twig->render('index'));
+//        echo $this->render('index.php', ['data' => $params]);
+
+//        $this->render();
+//        $twig = new Twig\Loader\ArrayLoader($loader);
+//        $template = $twig->loadTemplate('index.php');
+//        echo $template->render(['data' => $params['data']]);
     }
+    /**
+     * @throws Http404Exception
+     */
     public function part()
     {
         $activePage = System::$post['page'];
@@ -150,6 +193,27 @@ class Employes extends Controller
         }
         $params['allPage'] = (int)$allPage;
         $params['activePage'] = $activePage;
-        $this->render($params);
+//        $this->render($params);
+//        $this->render();
+//        $loader = new \Twig\Loader\ArrayLoader($params);
+//        $twig = new \Twig\Environment($loader);
+//        $twig->render('data');
+        $this->render();
+        $loader = new \Twig\Loader\ArrayLoader([
+            'part.php' => '{{ data }}'
+        ]);
+        $twig = new \Twig\Environment($loader);
+//        var_dump($params['data']);
+        echo $twig->render('part.php', $params['data']);
+//        var_dump($twig->render('index', ['data' => $params['data']]));
+
+//        $loader2 = new \Twig\Loader\ArrayLoader([
+//            'index.php' => '{% extends "part.php" %}{% block content %}Hello {{ name }}{% endblock %}',
+//
+//        ]);
+//
+//        $loader = new \Twig\Loader\ChainLoader([$loader2]);
+//
+//        $twig = new \Twig\Environment($loader);
     }
 }

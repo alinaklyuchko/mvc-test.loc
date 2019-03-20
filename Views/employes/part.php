@@ -3,15 +3,13 @@
         <td>Имя</td>
         <td>Департамент</td>
     </tr>
-    <?php if ($data) : ?>
-        <?php foreach ($data as $datum) : ?>
+<!--    {{ data }}-->
+        {% for datum in data %}
             <tr>
-                <td><?= $datum->name ?></td>
-                <td><?= $datum->department_name ?></td>
+            <td>{{ datum.name }}</td>
+            <td>{{ datum.department_name }}</td>
             </tr>
-        <?php endforeach; ?>
-    <?php endif; ?>
+        {% endfor %}
+
 </table>
-<?php
-\Services\Pagination::countPag($params);
-?>
+<?php \Services\Pagination::countPag($params); ?>

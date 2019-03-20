@@ -42,7 +42,7 @@ class App {
             echo $exception->getMessage();
             exit();
         }
-        \System\Asset::getCss();
-        \System\Asset::getJs();
+//        \System\Asset::getCss();
+//        \System\Asset::getJs();
     }
 }

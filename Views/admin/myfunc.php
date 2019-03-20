@@ -7,10 +7,6 @@ require_once 'Model/DbTable.php';
 $mod = new Model\DbTable('employers', ['id' => '', 'name' => '', 'department' => '', 'department_id' => '']);
 $data = $mod->select(['limit' => '10', 'offset' => '5', 'where' => 'position = "Менеджер"']);
 //$mod->insert(['first_name' => 'Malkovich', 'name' => 'Antony', 'position' => 'manager']);
-require_once 'System/Asset.php';
-\System\Asset::getCss();
-\System\Asset::getJs();
-
 ?>
 <!doctype html>
 <html lang="en">

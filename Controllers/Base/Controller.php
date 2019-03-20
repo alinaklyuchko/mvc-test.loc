@@ -37,13 +37,24 @@ class Controller
      */
     public function render(array $params = [], $viewPath = '')
     {
+        require_once 'vendor/autoload.php';
+        $loader = new \Twig\Loader\FilesystemLoader('./Views/employes');
+
+
+
+        $twig = new \Twig\Environment($loader, [
+            'cache' => './compilation_cache',
+        ]);
+
         if (!$viewPath) {
-            $viewPath = './Views/'. mb_strtolower($this->getViewDirectory($this->controller)) .'/'. $this->action .'.php';
+            $viewPath = './Views/'. mb_strtolower($this->getViewDirectory($this->controller)) .'/'. $this->action .'.twig';
         }
+
         if (file_exists($viewPath))
         {
-            extract($params);
-            require_once "$viewPath";
+//            extract($params);
+            echo $twig->render($this->action .'.twig', $params);
+//            require_once "$viewPath";
         }
     }
     /**
@@ -55,5 +66,15 @@ class Controller
         $controller = trim(stristr($controller, '\\'), '\\');
         return $controller;
     }
-
+//    public function render()
+//    {
+//        require_once 'vendor/autoload.php';
+//        $loader = new \Twig\Loader\FilesystemLoader('Views/employes');
+//
+//
+//        $twig = new \Twig\Environment($loader, [
+//            'cache' => './compilation_cache',
+//        ]);
+//
+//    }
 }

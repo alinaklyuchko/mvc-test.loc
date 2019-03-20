@@ -1,1 +1,1 @@
-document.write(' this is first.js ');
+// document.write(' this is first.js ');
